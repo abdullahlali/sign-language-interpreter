@@ -61,7 +61,7 @@
 4. Run the system:
    - On Raspberry Pi:
      ```bash
-     python run_server.py
+      python3 /home/pi/Desktop/flaskie/flaskie.py
      ```
    - On external computer:
      ```bash
