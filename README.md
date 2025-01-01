@@ -1,137 +1,116 @@
 # SignSense - Sign Language Interpreter
 
-## Team Information
-- **Team Name**: Team Coconut  
-- **Team Number**: 10  
-- **Team Members**: Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
-- **Git Repository**: [SignSense Repository](https://git.uwaterloo.ca/r5hill/se101_project)
+## Overview
+
+**Team Name:** Team Coconut  
+**Team Number:** 10  
+**Team Members:** Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
+
+**Repository:** [GitLab Repository](https://git.uwaterloo.ca/r5hill/se101_project)  
+
+**SignSense** is a system designed to bridge communication between individuals using sign language and those who do not understand it. The project integrates hardware and software to interpret gestures, speech, and text for seamless interaction.
 
 ---
 
-## Project Overview
+## Features
 
-**SignSense** is an innovative system designed to bridge communication gaps by interpreting sign language and spoken language. By combining hardware and software components, SignSense allows seamless interaction between users, making communication accessible for everyone.
+- **Gesture Recognition:** Captures hand gestures using a camera and translates them into text.  
+- **Speech Recognition:** Converts spoken language into text.  
+- **Text-to-Speech Conversion:** Outputs text as spoken language for enhanced communication.  
 
-### Key Features
-
-1. **Capture Gestures**:
-   - The camera recognizes hand gestures and detects facial expressions to translate them into text.
-
-2. **Convert Gestures to Text**:
-   - Recognized gestures are processed and displayed as text in real-time.
-
-3. **Speech Recognition**:
-   - Converts spoken words captured by the microphone into text.
-
-4. **Text-to-Speech Conversion**:
-   - Converts displayed text into spoken language for dynamic interactions.
+### Current Implementation
+- Converts gestures into text, played through headphones.
+- External processing using Python, TensorFlow, Mediapipe, and Flask for gesture and language processing.
 
 ---
 
-## Technical Implementation
+## Technical Details
 
-1. **Setup**:
-   - The Raspberry Pi Zero 2W runs a Python script on boot, starting a Flask server and capturing video feed using OpenCV and Picamera2.
-   - This video feed is accessible on the LAN network via the Flask server.
+1. **System Design**
+   - Raspberry Pi Zero 2W for initial input processing.
+   - Flask server for communication between Raspberry Pi and an external computer.
+   - TensorFlow and Mediapipe for gesture recognition.
 
-2. **Processing**:
-   - The external computer analyzes the video feed with Mediapipe and TensorFlow to interpret gestures and letters.
-   - Sentences are detected and corrected for grammar/spelling issues using `pyttsx3` and `nltk`.
-
-3. **Output**:
-   - Text is converted into speech using `espeak` and sent back to the Raspberry Pi for playback via headphones.
-
-### Challenges
-
-- Limited processing power of the Raspberry Pi Zero 2W necessitated offloading tasks to an external computer.
-- Delays in integrating features like facial expression recognition and screen display due to hardware limitations.
+2. **Data Flow**
+   - Video feed captured by the Raspberry Pi is analyzed externally for letter recognition.
+   - Text output is checked for grammar/spelling using `nltk` and formatted into sentences.
+   - Text is converted to speech on the Raspberry Pi using `espeak`.
 
 ---
 
-## Professional Considerations
+## Setup Instructions
 
-### Privacy & Safety
-- Live video feed raises potential privacy concerns.
-- Wireless network vulnerabilities could expose the video feed to interception.
+### Requirements
+- Raspberry Pi Zero 2W
+- Camera module
+- External computer with Python 3.9+ and necessary libraries
 
-### Intellectual Property
-The following libraries and tools were used under permissible licenses:
-1. OpenCV (Apache 2.0)
-2. Mediapipe (Apache 2.0)
-3. TensorFlow (Apache 2.0)
-4. NLTK (Apache 2.0)
-5. Flask (BSD 3-Clause)
-6. Picamera2 (BSD 2-Clause)
-7. NumPy (BSD License)
-8. LanguageToolPython (LGPL 2.1)
-
----
-
-## Project Outcome
-Despite hardware limitations, the core functionality of interpreting gestures and converting them into text was successfully implemented. The project provided valuable insights into hardware constraints and emphasized the importance of thorough research and planning.
-
-### Budget Analysis
-- **Labor**: 96 hours x $25/hour = $2,400  
-- **Hardware**: $73  
-- **Total**: $2,473  
-
----
-
-## User Manual
-
-### Getting Started
-
-1. **Hardware Setup**:
-   - Connect the Raspberry Pi to a camera module and headphones.
-   - Ensure both the Raspberry Pi and external computer are on the same LAN.
-
-2. **Software Requirements**:
-   - Install the required Python libraries: OpenCV, Mediapipe, TensorFlow, Flask, Pyttsx3, NLTK.
-   - Start the Flask server on the Raspberry Pi.
-
-3. **Using SignSense**:
-   - Perform hand gestures in front of the camera.
-   - View the interpreted text on the external computer.
-   - Listen to the text-to-speech output via headphones.
-
-### Troubleshooting
-- Ensure the camera and microphone are connected properly.
-- Verify the Flask server is running and accessible.
-- Check for any missing Python dependencies.
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://git.uwaterloo.ca/r5hill/se101_project.git
+   cd se101_project
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Set up the Raspberry Pi:
+   - Enable LAN connection and Flask server.
+   - Configure the camera module.
+4. Run the system:
+   - On Raspberry Pi:
+     ```bash
+     python run_server.py
+     ```
+   - On external computer:
+     ```bash
+     python process_video_feed.py
+     ```
 
 ---
 
-## Roadmap
+## How to Use
 
-Future improvements include:
-1. Integrating facial expression recognition.
-2. Adding a display screen for real-time feedback.
-3. Optimizing processing to eliminate reliance on external computers.
+1. **Start the System**:
+   - Ensure the Raspberry Pi and the external computer are connected to the same LAN.
+   - Run the server on the Raspberry Pi and the processing script on the external computer as described in the setup instructions.
 
----
+2. **Input Gestures**:
+   - Use hand gestures in front of the camera module connected to the Raspberry Pi.
+   - The system will recognize the gestures and convert them into corresponding text.
 
-## Contribution Guidelines
+3. **View and Listen to Outputs**:
+   - The recognized text will be processed and sent to the text-to-speech module.
+   - The output will be played through the connected headphones.
 
-1. Fork the repository and create a new branch.
-2. Submit pull requests with clear descriptions of changes.
-3. Use test cases provided in `updated_main.py` to validate contributions.
-
----
-
-## Authors
-- Dhruv Charan
-- Ryland Hill
-- Abdullah Liaqat Ali
-- Shaan Nair
-- Taha Shahid
-- Zayd Syed
+4. **Speech-to-Text**:
+   - Speak into the microphone connected to the system.
+   - The system will convert the speech into text for further interaction.
 
 ---
 
-## License
-This project uses libraries under open-source licenses (Apache 2.0, BSD, LGPL 2.1). Refer to individual library documentation for details.
+## Challenges and Limitations
+
+- **Processing Power:** Limited by Raspberry Pi Zero 2W, requiring external computation.  
+- **Incomplete Features:** Facial expression recognition and display integration were not implemented due to time constraints.  
 
 ---
 
-## Project Status
-Active development has concluded. Contributions are welcome to enhance functionality and add features.
+## Future Enhancements
+
+- Use a more powerful microcontroller for onboard processing.  
+- Add facial expression recognition for emotional context.  
+- Integrate a display for real-time interaction feedback.  
+
+---
+
+## License and Dependencies
+
+This project relies on several open-source libraries:
+- **OpenCV, Mediapipe, TensorFlow** (Apache 2.0)  
+- **Flask** (BSD 3-Clause)  
+- **NLTK** (Apache 2.0)  
+- **Picamera2** (BSD 2-Clause)  
+
+All libraries are free for commercial use under their respective licenses.
