@@ -1,93 +1,137 @@
-# Se101_project
+# SignSense - Sign Language Interpreter
 
+## Team Information
+- **Team Name**: Team Coconut  
+- **Team Number**: 10  
+- **Team Members**: Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
+- **Git Repository**: [SignSense Repository](https://git.uwaterloo.ca/r5hill/se101_project)
 
+---
 
-## Getting started
+## Project Overview
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+**SignSense** is an innovative system designed to bridge communication gaps by interpreting sign language and spoken language. By combining hardware and software components, SignSense allows seamless interaction between users, making communication accessible for everyone.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Key Features
 
-## Add your files
+1. **Capture Gestures**:
+   - The camera recognizes hand gestures and detects facial expressions to translate them into text.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+2. **Convert Gestures to Text**:
+   - Recognized gestures are processed and displayed as text in real-time.
 
-```
-cd existing_repo
-git remote add origin https://git.uwaterloo.ca/r5hill/se101_project.git
-git branch -M main
-git push -uf origin main
-```
+3. **Speech Recognition**:
+   - Converts spoken words captured by the microphone into text.
 
-## Integrate with your tools
+4. **Text-to-Speech Conversion**:
+   - Converts displayed text into spoken language for dynamic interactions.
 
-- [ ] [Set up project integrations](https://git.uwaterloo.ca/r5hill/se101_project/-/settings/integrations)
+---
 
-## Collaborate with your team
+## Technical Implementation
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+1. **Setup**:
+   - The Raspberry Pi Zero 2W runs a Python script on boot, starting a Flask server and capturing video feed using OpenCV and Picamera2.
+   - This video feed is accessible on the LAN network via the Flask server.
 
-## Test and Deploy
+2. **Processing**:
+   - The external computer analyzes the video feed with Mediapipe and TensorFlow to interpret gestures and letters.
+   - Sentences are detected and corrected for grammar/spelling issues using `pyttsx3` and `nltk`.
 
-Use the built-in continuous integration in GitLab.
+3. **Output**:
+   - Text is converted into speech using `espeak` and sent back to the Raspberry Pi for playback via headphones.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Challenges
 
-***
+- Limited processing power of the Raspberry Pi Zero 2W necessitated offloading tasks to an external computer.
+- Delays in integrating features like facial expression recognition and screen display due to hardware limitations.
 
-# Editing this README
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Professional Considerations
 
-## Suggestions for a good README
+### Privacy & Safety
+- Live video feed raises potential privacy concerns.
+- Wireless network vulnerabilities could expose the video feed to interception.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Intellectual Property
+The following libraries and tools were used under permissible licenses:
+1. OpenCV (Apache 2.0)
+2. Mediapipe (Apache 2.0)
+3. TensorFlow (Apache 2.0)
+4. NLTK (Apache 2.0)
+5. Flask (BSD 3-Clause)
+6. Picamera2 (BSD 2-Clause)
+7. NumPy (BSD License)
+8. LanguageToolPython (LGPL 2.1)
 
-## Name
-Choose a self-explaining name for your project.
+---
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Project Outcome
+Despite hardware limitations, the core functionality of interpreting gestures and converting them into text was successfully implemented. The project provided valuable insights into hardware constraints and emphasized the importance of thorough research and planning.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Budget Analysis
+- **Labor**: 96 hours x $25/hour = $2,400  
+- **Hardware**: $73  
+- **Total**: $2,473  
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+---
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## User Manual
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Getting Started
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+1. **Hardware Setup**:
+   - Connect the Raspberry Pi to a camera module and headphones.
+   - Ensure both the Raspberry Pi and external computer are on the same LAN.
+
+2. **Software Requirements**:
+   - Install the required Python libraries: OpenCV, Mediapipe, TensorFlow, Flask, Pyttsx3, NLTK.
+   - Start the Flask server on the Raspberry Pi.
+
+3. **Using SignSense**:
+   - Perform hand gestures in front of the camera.
+   - View the interpreted text on the external computer.
+   - Listen to the text-to-speech output via headphones.
+
+### Troubleshooting
+- Ensure the camera and microphone are connected properly.
+- Verify the Flask server is running and accessible.
+- Check for any missing Python dependencies.
+
+---
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Future improvements include:
+1. Integrating facial expression recognition.
+2. Adding a display screen for real-time feedback.
+3. Optimizing processing to eliminate reliance on external computers.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+---
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Contribution Guidelines
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+1. Fork the repository and create a new branch.
+2. Submit pull requests with clear descriptions of changes.
+3. Use test cases provided in `updated_main.py` to validate contributions.
+
+---
+
+## Authors
+- Dhruv Charan
+- Ryland Hill
+- Abdullah Liaqat Ali
+- Shaan Nair
+- Taha Shahid
+- Zayd Syed
+
+---
 
 ## License
-For open source projects, say how it is licensed.
+This project uses libraries under open-source licenses (Apache 2.0, BSD, LGPL 2.1). Refer to individual library documentation for details.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+---
+
+## Project Status
+Active development has concluded. Contributions are welcome to enhance functionality and add features.
