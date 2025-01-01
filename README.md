@@ -2,11 +2,8 @@
 
 ## Overview
 
-**Team Name:** Team Coconut  
-**Team Number:** 10  
+**Team Name:** Team Coconut
 **Team Members:** Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
-
-**Repository:** [GitLab Repository](https://git.uwaterloo.ca/r5hill/se101_project)  
 
 **SignSense** is a system designed to bridge communication between individuals using sign language and those who do not understand it. The project integrates hardware and software to interpret gestures, speech, and text for seamless interaction.
 
