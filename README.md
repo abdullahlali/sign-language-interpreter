@@ -1,93 +1,113 @@
-# Se101_project
+# SignSense - Sign Language Interpreter
 
+## Overview
 
+**Team Name:** Team Coconut
+**Team Members:** Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
 
-## Getting started
+**SignSense** is a system designed to bridge communication between individuals using sign language and those who do not understand it. The project integrates hardware and software to interpret gestures, speech, and text for seamless interaction.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+---
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Features
 
-## Add your files
+- **Gesture Recognition:** Captures hand gestures using a camera and translates them into text.  
+- **Speech Recognition:** Converts spoken language into text.  
+- **Text-to-Speech Conversion:** Outputs text as spoken language for enhanced communication.  
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Current Implementation
+- Converts gestures into text, played through headphones.
+- External processing using Python, TensorFlow, Mediapipe, and Flask for gesture and language processing.
 
-```
-cd existing_repo
-git remote add origin https://git.uwaterloo.ca/r5hill/se101_project.git
-git branch -M main
-git push -uf origin main
-```
+---
 
-## Integrate with your tools
+## Technical Details
 
-- [ ] [Set up project integrations](https://git.uwaterloo.ca/r5hill/se101_project/-/settings/integrations)
+1. **System Design**
+   - Raspberry Pi Zero 2W for initial input processing.
+   - Flask server for communication between Raspberry Pi and an external computer.
+   - TensorFlow and Mediapipe for gesture recognition.
 
-## Collaborate with your team
+2. **Data Flow**
+   - Video feed captured by the Raspberry Pi is analyzed externally for letter recognition.
+   - Text output is checked for grammar/spelling using `nltk` and formatted into sentences.
+   - Text is converted to speech on the Raspberry Pi using `espeak`.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+---
 
-## Test and Deploy
+## Setup Instructions
 
-Use the built-in continuous integration in GitLab.
+### Requirements
+- Raspberry Pi Zero 2W
+- Camera module
+- External computer with Python 3.9+ and necessary libraries
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://git.uwaterloo.ca/r5hill/se101_project.git
+   cd se101_project
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Set up the Raspberry Pi:
+   - Enable LAN connection and Flask server.
+   - Configure the camera module.
+4. Run the system:
+   - On Raspberry Pi:
+     ```bash
+      python3 /home/pi/Desktop/flaskie/flaskie.py
+     ```
+   - On external computer:
+     ```bash
+     python process_video_feed.py
+     ```
 
-***
+---
 
-# Editing this README
+## How to Use
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+1. **Start the System**:
+   - Ensure the Raspberry Pi and the external computer are connected to the same LAN.
+   - Run the server on the Raspberry Pi and the processing script on the external computer as described in the setup instructions.
 
-## Suggestions for a good README
+2. **Input Gestures**:
+   - Use hand gestures in front of the camera module connected to the Raspberry Pi.
+   - The system will recognize the gestures and convert them into corresponding text.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+3. **View and Listen to Outputs**:
+   - The recognized text will be processed and sent to the text-to-speech module.
+   - The output will be played through the connected headphones.
 
-## Name
-Choose a self-explaining name for your project.
+4. **Speech-to-Text**:
+   - Speak into the microphone connected to the system.
+   - The system will convert the speech into text for further interaction.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+---
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Challenges and Limitations
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- **Processing Power:** Limited by Raspberry Pi Zero 2W, requiring external computation.  
+- **Incomplete Features:** Facial expression recognition and display integration were not implemented due to time constraints.  
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+---
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Future Enhancements
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+- Use a more powerful microcontroller for onboard processing.  
+- Add facial expression recognition for emotional context.  
+- Integrate a display for real-time interaction feedback.  
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## License and Dependencies
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+This project relies on several open-source libraries:
+- **OpenCV, Mediapipe, TensorFlow** (Apache 2.0)  
+- **Flask** (BSD 3-Clause)  
+- **NLTK** (Apache 2.0)  
+- **Picamera2** (BSD 2-Clause)  
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+All libraries are free for commercial use under their respective licenses.
