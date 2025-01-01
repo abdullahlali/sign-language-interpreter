@@ -2,6 +2,7 @@
 
 ## Overview
 
+**Software Engineering 1A Design Project @ University of Waterloo.**
 **Team Name:** Team Coconut
 **Team Members:** Dhruv Charan, Ryland Hill, Abdullah Liaqat Ali, Shaan Nair, Taha Shahid, Zayd Syed  
 
