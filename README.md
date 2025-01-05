@@ -47,8 +47,8 @@
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://git.uwaterloo.ca/r5hill/se101_project.git
-   cd se101_project
+   git clone https://git.uwaterloo.ca/abdullahlali/sign-language-interpreter.git
+   cd sign-language-interpreter
    ```
 2. Install dependencies:
    ```bash
